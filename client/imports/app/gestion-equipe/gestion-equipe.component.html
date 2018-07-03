@@ -20,8 +20,8 @@
               
         </div>
         <div id="demo">
-          <app-equipe *ngFor="let e of entreprise.tabEquipe"
-          [equipe]="e"
+          <app-equipe *ngFor="let e of equipes | async"
+          [equipe]="e" [personnes]="personnes"
           ></app-equipe>
         </div>
         </div>
@@ -49,8 +49,8 @@
                 [ngModel]="defaultEquipe">
                 <option value="0">Pas d'Equipe</option>
                 <option 
-                *ngFor="let e of entreprise.tabEquipe"
-                value="{{e.id}}" >
+                *ngFor="let e of equipes | async"
+                value="{{e._id}}" >
                   {{e.nom}}
                 </option>   
               </select>
@@ -77,11 +77,11 @@
           
           <table id="tabListUser">
           
-            <tr *ngFor="let p of entreprise.tabPersonne">
-              <td> {{p.prenom}} {{p.nom}} </td>
+            <tr *ngFor="let p of personnes | async">
+              <td> {{p.prenom}} {{p.nomDeFamille}} </td>
               <td>
                 <button class="btn btn-danger btn-sm"
-                  (click)="onPersonneDelete(p.id)"
+                  (click)="onPersonneDelete(p._id)"
                 >
                   <i class="fa fa-trash" aria-hidden="true"></i>
                 </button>

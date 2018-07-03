@@ -21,10 +21,10 @@
           (ngSubmit)="onAjouterPersonne(b)">
 				<select name="personne" ngModel>
 					<option 
-					*ngFor="let p of getTabPersonne()" 
-						[ngValue]="p"
+					*ngFor="let p of getAllPersonnes()" 
+						[ngValue]="p._id"
 					>
-					{{p.prenom}} {{p.nom}}
+					{{p.prenom}} {{p.nomDeFamille}}
 						
 					</option>
 					
@@ -41,12 +41,12 @@
 		<th>Nom</th>
 		<th>Action</th>
 	</tr>
-	<tr *ngFor="let p of equipe.tabPersonne">
+	<tr *ngFor="let p of getPersonnes()">
 		<td>{{p.prenom}}</td>
-		<td>{{p.nom}}</td>
+		<td>{{p.nomDeFamille}}</td>
 		<td>
 			 <button class="btn btn-danger btn-sm"
-                  (click)="onPersonneDelete(p.id)"
+                  (click)="onPersonneDelete(p._id)"
                 >
                   <i class="fa fa-trash" aria-hidden="true"></i>
                 </button>

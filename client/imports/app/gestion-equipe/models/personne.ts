@@ -1,4 +1,4 @@
 export class Personne{
 
-	constructor(public id:number,public prenom:string,public nom:string){}
+	constructor(public _id:string,public prenom:string,public nomDeFamille:string){}
 }

@@ -1,8 +1,7 @@
-import {Personne} from './personne';
 
 export class Equipe{
-	tabPersonne:Personne[];
-	constructor(public id:number,public nom:string){
-		this.tabPersonne =[];
+
+	constructor(public _id:string,public nom:string, personnesIds:[string]){
+
 	}
 }

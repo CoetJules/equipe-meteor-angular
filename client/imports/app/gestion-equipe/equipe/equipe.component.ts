@@ -1,60 +1,45 @@
-import { Component, OnInit,Input } from '@angular/core';
-import { EntrepriseService } from '../services/entreprise.service';
-import { Equipe } from '../models/equipe';
-import { Entreprise } from '../models/entreprise';
-import { Personne } from '../models/personne';
-import{ Subscription} from 'rxjs/Subscription';
+import { Component, Input } from '@angular/core';
 import { NgForm } from '@angular/forms';
+
+
 @Component({
   selector: 'app-equipe',
   templateUrl: './equipe.component.html',
   styleUrls: ['./equipe.component.scss']
 })
-export class EquipeComponent implements OnInit {
-	@Input() equipe:Equipe;
-	entreprise:Entreprise;
-	entrepriseSubscription:Subscription;
-
-  constructor(private entrepriseService:EntrepriseService) { }
-
-  ngOnInit() {
-  	this.entrepriseSubscription = 
-    this.entrepriseService.entrepriseSubject.subscribe(
-      (entreprise: Entreprise)=>{
-        this.entreprise = entreprise;
-      }
-      );
-    this.entrepriseService.emitEntrepriseSubject();
-  }
+export class EquipeComponent {
+	@Input() equipe;
+  @Input() personnes;
+  
   onEnleverEquipe(){
-  	this.entrepriseService.enleverEquipe(this.equipe.id);
+    Meteor.call('removeEquipe', this.equipe._id);
   }
- onPersonneDelete(personneId:number){
- 	this.entrepriseService.enleverPersonneEquipe(this.equipe.id,personneId);
- }
- onAjouterPersonne(f:NgForm){
- 	let p:Personne =f.value["personne"];
- 	console.log(p);
- 	this.entrepriseService.ajouterPersonneEquipe(this.equipe.id,p);
- }
- notInEquipe(p:Personne){
- 	let flag = true;
- 	for (let pers of this.equipe.tabPersonne){
- 		if(pers.id == p.id){
- 			flag = false;
- 		}
- 	}
- 	return flag;
- }
- getTabPersonne(){
- 	let tabPersonne:Personne[]=[];
- 	for(let p of this.entreprise.tabPersonne){
- 		if (this.notInEquipe(p)){
- 			tabPersonne.push(p);
- 		}
- 	}
- 	return tabPersonne;
- }
- 
 
+  onPersonneDelete(personneId:string){
+    Meteor.call('removePersonneFromEquipe', this.equipe._id, personneId);
+  }
+  
+  onAjouterPersonne(f:NgForm){
+    let idPersonne = f.value["personne"];
+    Meteor.call('addPersonneToEquipe', this.equipe._id, idPersonne);
+  }
+  
+  getPersonnes() {
+    if(this.personnes != undefined) {
+      return this.equipe.personnesIds.map(personneId => (
+        this.personnes._data.find(personne => personne._id === personneId)
+      ));
+    }
+  }
+
+  getAllPersonnes() {
+    if (this.personnes != undefined) {
+      return this.personnes._data.filter(personne => (
+        personne._id !== this.equipe.personnesIds.find(personneId => (
+          personne._id === personneId
+        ))
+      ));
+    }
+  }
+  
 }
