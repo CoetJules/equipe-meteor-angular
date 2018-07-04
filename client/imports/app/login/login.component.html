@@ -1,0 +1,43 @@
+<div class="container">
+  
+  <div class="jumbotron">
+    <div class="container">
+      <h1 class="display-3">Connexion</h1>
+    </div>
+  </div>
+  
+  <div class="row">
+    
+    <div class="col-md-6">
+      <div class="form-group row">
+        <label for="email" class="col-sm-4 col-form-label">Email</label>
+        <div class="col-sm-8">
+          <input type="email" 
+          [(ngModel)]="email"
+          class="form-control" placeholder="hello@coucou.com">
+        </div>
+      </div>
+      
+      <div class="form-group row">
+        <label for="password" class="col-sm-4 col-form-label">Password</label>
+        <div class="col-sm-8">
+          <input type="password" 
+          [(ngModel)]="password"
+          class="form-control"  placeholder=".......">
+        </div>
+      </div>
+      
+      <div class="form-group row">
+        <div class="col-sm-6">
+          <button (click)="onRegister()" class="btn btn-primary">Register</button>
+          <button (click)="onLogin()" class="btn btn-primary">Login</button>          
+        </div>
+
+      </div>
+    </div>
+  </div>
+  
+  
+  
+  
+</div>

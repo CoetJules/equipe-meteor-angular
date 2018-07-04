@@ -11,6 +11,8 @@ import { AccountsModule } from 'angular2-meteor-accounts-ui';
 
 import { AppComponent } from './app.component';
 import { ImcComponent } from './imc/imc.component';
+import { LoginComponent } from './login/login.component';
+import { LogoutComponent } from './logout/logout.component';
 import { GestionEquipeComponent } from './gestion-equipe/gestion-equipe.component';
 import { EquipeComponent } from './gestion-equipe/equipe/equipe.component';
 import { TodoAddComponent } from './todo-add/todo-add.component';
@@ -36,7 +38,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
       {
         path: 'gestionEquipe',
         component: GestionEquipeComponent,
-        //canActivate: ['canActivateForLoggedIn'],
+        canActivate: ['canActivateForLoggedIn'],
       },
       {
         path: 'todoAdd',
@@ -45,7 +47,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
       // Home Page
       {
         path: '',
-        redirectTo: '/todoList',
+        component: LoginComponent,
         pathMatch: 'full'
       },
       // 404 Page
@@ -57,6 +59,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
   ],
   declarations: [
     AppComponent,
+    LoginComponent,
+    LogoutComponent,
     ImcComponent,
     GestionEquipeComponent,
     EquipeComponent,
