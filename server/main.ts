@@ -6,3 +6,6 @@ import './imports/publications/personnes';
 
 import './imports/methods/equipes';
 import './imports/publications/equipes';
+
+import './imports/methods/errors';
+

@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { RouterModule } from '@angular/router';
+import { AccountsModule } from 'angular2-meteor-accounts-ui';
 
 import { AppComponent } from './app.component';
 import { ImcComponent } from './imc/imc.component';
@@ -16,13 +17,13 @@ import { TodoAddComponent } from './todo-add/todo-add.component';
 import { TodoListComponent } from './todo-list/todo-list.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
-import { EntrepriseService } from './gestion-equipe/services/entreprise.service';
 
 @NgModule({
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
+    AccountsModule,
     RouterModule.forRoot([
       {
         path: 'todoList',
@@ -34,7 +35,8 @@ import { EntrepriseService } from './gestion-equipe/services/entreprise.service'
       },
       {
         path: 'gestionEquipe',
-        component: GestionEquipeComponent
+        component: GestionEquipeComponent,
+        //canActivate: ['canActivateForLoggedIn'],
       },
       {
         path: 'todoAdd',
@@ -63,7 +65,10 @@ import { EntrepriseService } from './gestion-equipe/services/entreprise.service'
     PageNotFoundComponent
   ],
   providers: [
-    EntrepriseService
+    {
+      provide: 'canActivateForLoggedIn',
+      useValue: () => !!Meteor.userId()
+    }
   ],
   bootstrap: [
     AppComponent

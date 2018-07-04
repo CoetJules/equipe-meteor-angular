@@ -20,5 +20,18 @@ export const Personne = new SimpleSchema({
     },
     denyUpdate: true,
   },
+  userId: {
+    type: String,
+    autoValue: function () {
+      if (this.isInsert) {
+        return Meteor.userId();
+      } else if (this.isUpsert) {
+        return { $setOnInsert: Meteor.userId() };
+      } else {
+        this.unset();  // Prevent user from supplying their own value
+      }
+    },
+    denyUpdate: true,
+  },
 });
 

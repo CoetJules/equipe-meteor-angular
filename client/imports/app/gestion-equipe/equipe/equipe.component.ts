@@ -35,9 +35,7 @@ export class EquipeComponent {
   getAllPersonnes() {
     if (this.personnes != undefined) {
       return this.personnes._data.filter(personne => (
-        personne._id !== this.equipe.personnesIds.find(personneId => (
-          personne._id === personneId
-        ))
+        !this.equipe.personnesIds.find(personneId => personne._id === personneId)
       ));
     }
   }
